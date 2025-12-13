@@ -4,154 +4,115 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>神奈川EMS ライブカメラまとめ</title>
+  <title>ライブカメラまとめ（4列×12行 = 48本）</title>
   <style>
-    :root{
-      color-scheme: light;
-    }
+    :root { color-scheme: light; }
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
       margin:0; padding:0; background:#f7f7f9; color:#222;
     }
     header{background:#0b5bd3; color:#fff; padding:1.2rem 1rem;}
     header h1{margin:0; font-size:1.25rem}
-    main{padding:1rem; max-width:1200px; margin:0 auto;}
-    section{background:#fff; border:1px solid #e5e7eb; border-radius:10px; margin:0 0 1rem; padding:1rem;}
-    h2{font-size:1.1rem; margin-top:0}
+    main{padding:1rem; max-width:1400px; margin:0 auto;}
+    .note{
+      font-size:.92rem; color:#444; background:#fffef2;
+      border:1px solid #f0e7c0; border-radius:10px; padding:.8rem; margin:0 0 1rem;
+    }
 
-    /* ---- グリッド設定：PCで4列 ---- */
+    /* ---- グリッド：PCで常に4列、狭い画面では段階的に減らす ---- */
     .grid{
       display:grid;
-      grid-template-columns: repeat(4, 1fr); /* ★ ここで4列に */
+      grid-template-columns: repeat(4, 1fr); /* ★ 4列固定（PC想定） */
       gap:12px;
     }
+    @media (max-width: 1200px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px) { .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .grid{ grid-template-columns: 1fr; } }
 
-    /* 画面が狭くなるほど列数を減らす（可変） */
-    @media (max-width: 1280px){
-      .grid{ grid-template-columns: repeat(3, 1fr); }
+    .card{
+      border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; background:#fff;
     }
-    @media (max-width: 960px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
+    .card h3{
+      margin:0; padding:.6rem .8rem; font-size:.95rem;
+      background:#fff; border-bottom:1px solid #eee;
     }
-    @media (max-width: 640px){
-      .grid{ grid-template-columns: 1fr; } /* スマホは1列 */
-    }
+    .player{ aspect-ratio:16/9; background:#000; }
+    .player iframe{ width:100%; height:100%; border:0; }
 
-    .card{border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; background:#fafafa}
-    .card h3{margin:0; padding:.6rem .8rem; font-size:.95rem; background:#fff; border-bottom:1px solid #eee}
-
-    /* プレイヤーのアスペクト比を固定（16:9） */
-    .player{aspect-ratio:16/9; background:#000;}
-    .player iframe{width:100%; height:100%; border:0;}
-
-    footer{padding:1.5rem; text-align:center; color:#666;}
-    .note{font-size:.9rem; color:#444; background:#fffef2; border:1px solid #f0e7c0; border-radius:8px; padding:.8rem; margin:.6rem 0;}
-    code{background:#f3f4f6; padding:.1rem .3rem; border-radius:4px}
+    footer{ padding:1.2rem; color:#666; text-align:center; }
+    code{ background:#f3f4f6; padding:.08rem .3rem; border-radius:4px; }
   </style>
 </head>
 <body>
   <header>
-    <h1>LIVE CAMERAS for Pilot in Kanagawa（神奈川・静岡・山梨）</h1>
+    <h1>LIVE CAMERAS（4列 × 12行）</h1>
   </header>
+
   <main>
-    <section>
-      <div class="note">
-        <p><strong>YouTube 埋め込みのエラー対策:</strong> すべての <code>&lt;iframe&gt;</code> は <code>https</code> の <code>embed</code> 形式を使用し、<code>referrerpolicy="strict-origin-when-cross-origin"</code> を付与しています。必要に応じて <code>youtube-nocookie.com</code> に切替してください。</p>
-        <ul>
-          <li>動画IDは <code>VIDEO_ID</code> を実際のIDに差し替えてください。</li>
-          <li>プライバシー強化モードを使う場合は <code>src</code> を <code>https://www.youtube-nocookie.com/embed/VIDEO_ID</code> に変更。</li>
-        </ul>
-      </div>
-    </section>
+    <div class="note">
+      <p><strong>使い方：</strong> 下の <code>VIDEO_ID_01</code> ～ <code>VIDEO_ID_48</code> を、実際のYouTube動画IDに置き換えてください。埋め込みURLは <code>https://www.youtube.com/embed/&lt;動画ID&gt;</code> 形式です。</p>
+      <ul>
+        <li>例：通常の視聴URL <code>https://www.youtube.com/watch?v=dQw4w9WgXcQ</code> のIDは <code>dQw4w9WgXcQ</code> なので、埋め込みは <code>https://www.youtube.com/embed/dQw4w9WgXcQ</code> になります。</li>
+        <li>プライバシー強化モード（Cookie最小化）を使いたい場合は、<code>www.youtube-nocookie.com/embed/&lt;動画ID&gt;</code> を使ってください。</li>
+        <li>再生できない場合は、動画の公開設定（公開/限定公開/非公開）やURL形式を見直してください。</li>
+      </ul>
+    </div>
 
     <section>
-      <h2>東海大EMS ライブカメラ</h2>
       <div class="grid">
-        <div class="card">
-          <h3>小田原方面</h3>
-          <div class="player">
-            <!-- 実動画: IDはそのまま / 例として既存のID -->
-            <iframe
-              src="https://www.youtube.com/embed/lvlFx0PAJ-k?si=4A2MUqcqCCFut3qE"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-             w.youtube.com/embed/KiMeFMZ-_ms?si=hXrGBntmPYV3FZWU</iframe>
-          </div>
-        </div>
 
-        <div class="card">
-          <h3>湘南方面</h3>
-          <div class="player">
-            <!-- ▼ VIDEO_ID を実際のIDに差し替えてください -->
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay;       <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
-             
-        <div class="card">
-          <h3>横浜方面</h3>
-          <div class="player">
-            <!-- ▼ VIDEO_ID を実際のIDに差し替えてください -->
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
-              title="div>
-    </section>
+        <!-- 01〜04行目（各4カード） = 16本 -->
+        <!-- 1行目 -->
+        <div class="card"><h3>01</h3><iframe width="560" height="315" src="https://www.youtube.com/embed/lvlFx0PAJ-k?si=gKAJlDkGuM_aQ-C6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
 
-    <section>
-      <h2>静岡県</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>沼津方面</h3>
-          <div class="player">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              loading="lazy" allowfullscreen>
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID"
-              title="YouTube video player"
-              referrer>山梨県</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>山中湖</h3>
-          <div class="player">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID"
-             
-        <div class="card">
-          <h3>甲府市近辺</h3>
-          <div class="player">
-            https://www.youtube.com/embed/VIDEO_ID</iframe>
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- 2行目 -->
+        <div class="card"><h3>05</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_05</iframe></div></div>
+        <div class="card"><h3>06</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_06</iframe></div></div>
+        <div class="card"><h3>07</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_07" title="YouTube 07" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"e.com/embed/VIDEO_ID_08</iframe></div></div>
 
-    <section>
-      <h2>埋め込みコードのテンプレート（コピー用）</h2>
-<pre><code>&lt;iframe width="560" height="315"
-  src="https://www.youtube.com/embed/VIDEO_ID"
-  title="YouTube video player"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;
+        <!-- 3行目 -->
+        <div class="card"><h3>09</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_09</iframe></div></div>
+        <div class="card"><h3>10</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_10</iframe></div></div>
+        <div class="card"><h3>11</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_11</iframe></div></div>
+        <div class="card"><h3>12</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_12</iframe></div></div>
 
-&lt;!-- プライバシー強化モード（Cookie最小化） --&gt;
-&lt;iframe width="560" height="315"
-  src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
-  title="YouTube video player"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;
-</code></pre>
-    </section>
-  </main>
+        <!-- 4行目 -->
+        <div class="card"><h3>13</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_13</iframe></div></div>
+        <div class="card"><h3>14</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_14</iframe></div></div>
+        <div class="card"><h3>15</h3><div class="player"><iframe src="https://om/embed/VIDEO_ID_15</iframe></div></div>
+        <div class="card"><h3>16</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_16</iframe></div></div>
 
-  <footer>
-    © 2025 LiveCamURL
-   </footer>
-</body>
+        <!-- 05〜08行目 = 16本（17〜32） -->
+        <!-- 5行目 -->
+        <div class="card"><h3>17</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_17</iframe></div></div>
+        <div class="card"><h3>18</h3><div class="player"><iframe src="https://om/embed/VIDEO_ID_18</iframe></div></div>
+        <div class="card"><h3>19</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_19" title="YouTube 19" referrerpolicy="3>20</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_20</iframe></div></div>
+
+        <!-- 6行目 -->
+        <div class="card"><h3>21</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_21</iframe></div></div>
+        <div class="card"><h3>22</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_22</iframe></div></div>
+        <div class="card"><h3>23</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_23</iframe></div></div>
+        <div class="card"><h3>24</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_24" title="YouTube 24" referrer>
+        <div class="card"><h3>25</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_25" title="YouTube 25" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreenO_ID_26</iframe></div></div>
+        <div class="card"><h3>27</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_27</iframe></div></div>
+        <div class="card"><h3>28</h3><div class="player"><iframe src="https://www.youtube.com/embed/iframe></div></div>
+
+        <!-- 8行目 -->
+        <div class="card"><h3>29</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_29" title="YouTube 29" referrerpolicy="strict-origin-class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_30" title="YouTube 30" referrerpolicy="strict-origin-when-crossyer"><iframe src="https://www.youtube.com/embed/VIDEO_ID_31" title="YouTube 31" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"://www.youtube.com/embed/VIDEO_ID_32" title="YouTube 32" referrerpolicy="strict-origin-when-cross-origin"        <div class="card"><h3>33</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_33</iframe></div></div>
+        <div class="card"><h3>34</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_34" title="YouTube 34"v class="card"><h3>35</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_35" title="YouTube 35" referrerpolicy="strict-origin-when-cross-origin" loading.youtube.com/embed/VIDEO_ID_36</iframe></div></div>
+
+        <!-- 10行目 -->
+        <div class="card"><h3>37</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID_37" title="YouTube 37" referrerpolicy="strict-origin-when-cross-origin" loading="outube.com/embed/VIDEO_ID_38</iframe></div></div>
+        <div class="card"><h3>39</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_39</iframe></div></div>
+        <div class="card"><h3>40</h3><div class="player"><iframe src="https://www.youtube.com/embed/iframe></div></div>
+
+        <!-- 11行目 -->
+        <div class="card"><h3>41</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_41</iframe></div></div>
+        <div class="card"><h3>42</h3><div class="player"><iframe src="https://www.youtube.com/embed/VIDEO_ID/div></div>
+        <div class="card"><h3>43</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_43</iframe></div></div>
+        <div class="card"><h3>44</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_44</iframe></div></div>
+
+        <!-- 12行目 -->
+        <div class="card"><h3>45</h3><div class="player">https://www.youtube.com/embed/VIDEO_ID_45</iframe></div></div>
+        <div class="card"><h3>46</h3><div class="player"><iframe/www.youtube.com/embed/VIDEO_ID_46</iframe></div></div>
+
