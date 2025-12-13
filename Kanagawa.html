@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,17 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>神奈川EMS ライブカメラまとめ</title>
   <style>
-    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif; margin:0; padding:0; background:#f7f7f9; color:#222;}
+    :root{
+      color-scheme: light;
+    }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+      margin:0; padding:0; background:#f7f7f9; color:#222;
+    }
     header{background:#0b5bd3; color:#fff; padding:1.2rem 1rem;}
     header h1{margin:0; font-size:1.25rem}
-    main{padding:1rem; max-width:1000px; margin:0 auto;}
+    main{padding:1rem; max-width:1200px; margin:0 auto;}
     section{background:#fff; border:1px solid #e5e7eb; border-radius:10px; margin:0 0 1rem; padding:1rem;}
     h2{font-size:1.1rem; margin-top:0}
-    .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px;}
+
+    /* ---- グリッド設定：PCで4列 ---- */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr); /* ★ ここで4列に */
+      gap:12px;
+    }
+
+    /* 画面が狭くなるほど列数を減らす（可変） */
+    @media (max-width: 1280px){
+      .grid{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 960px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; } /* スマホは1列 */
+    }
+
     .card{border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; background:#fafafa}
     .card h3{margin:0; padding:.6rem .8rem; font-size:.95rem; background:#fff; border-bottom:1px solid #eee}
-    .player{aspect-ratio:16/9;}
+
+    /* プレイヤーのアスペクト比を固定（16:9） */
+    .player{aspect-ratio:16/9; background:#000;}
     .player iframe{width:100%; height:100%; border:0;}
+
     footer{padding:1.5rem; text-align:center; color:#666;}
     .note{font-size:.9rem; color:#444; background:#fffef2; border:1px solid #f0e7c0; border-radius:8px; padding:.8rem; margin:.6rem 0;}
     code{background:#f3f4f6; padding:.1rem .3rem; border-radius:4px}
@@ -28,74 +56,47 @@
   <main>
     <section>
       <div class="note">
-        <p><strong>YouTube 埋め込みのエラー153（動画プレーヤーの設定エラー）対策済み:</strong> 全ての iframe に <code>referrerpolicy="strict-origin-when-cross-origin"</code> を付与し、必要に応じて <code>youtube-nocookie.com</code> へ切替できるようにしています。Lazy Load を使う場合も、最終的な <code>&lt;iframe&gt;</code> にこの属性が残るようにしてください。</p>
+        <p><strong>YouTube 埋め込みのエラー対策:</strong> すべての <code>&lt;iframe&gt;</code> は <code>https</code> の <code>embed</code> 形式を使用し、<code>referrerpolicy="strict-origin-when-cross-origin"</code> を付与しています。必要に応じて <code>youtube-nocookie.com</code> に切替してください。</p>
         <ul>
           <li>動画IDは <code>VIDEO_ID</code> を実際のIDに差し替えてください。</li>
-          <li>プライバシー強化モードを使う場合は <code>src</code> を <code>https://www.youtube-nocookie.com/embed/VIDEO_ID</code> に変更します。</li>
+          <li>プライバシー強化モードを使う場合は <code>src</code> を <code>https://www.youtube-nocookie.com/embed/VIDEO_ID</code> に変更。</li>
         </ul>
       </div>
     </section>
 
     <section>
-      <h2>神奈川</h2>
+      <h2>東海大EMS ライブカメラ</h2>
       <div class="grid">
         <div class="card">
           <h3>小田原方面</h3>
           <div class="player">
-            <!-- ▼ 動画IDを差し替えてください（例: dQw4w9WgXcQ） -->
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/lvlFx0PAJ-k?si=4A2MUqcqCCFut3qE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <!-- 実動画: IDはそのまま / 例として既存のID -->
+            <iframe
+              src="https://www.youtube.com/embed/lvlFx0PAJ-k?si=4A2MUqcqCCFut3qE"
+              title="YouTube video player"
+              referrerpolicy="strict-origin-when-cross-origin"
+             w.youtube.com/embed/KiMeFMZ-_ms?si=hXrGBntmPYV3FZWU</iframe>
           </div>
         </div>
-        <div class="card">
-          <h3>相模原方面</h3>
-          <div class="player">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/KiMeFMZ-_ms?si=hXrGBntmPYV3FZWU" 
-              title="YouTube video player" 
-              referrerpolicy="strict-origin-when-cross-origin"
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <h3>相模原方面</h3>
-          <div class="player">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/KiMeFMZ-_ms?si=hXrGBntmPYV3FZWU" 
-              title="YouTube video player" 
-              referrerpolicy="strict-origin-when-cross-origin"
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-        </div>
+
         <div class="card">
           <h3>湘南方面</h3>
           <div class="player">
+            <!-- ▼ VIDEO_ID を実際のIDに差し替えてください -->
             <iframe
               src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
               title="YouTube video player"
               referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="card">
-          <h3>横須賀方面</h3>
-          <div class="player">
-            <iframe
+              allow="accelerometer; autoplay;       <iframe
               src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
+             
         <div class="card">
           <h3>横浜方面</h3>
           <div class="player">
+            <!-- ▼ VIDEO_ID を実際のIDに差し替えてください -->
             <iframe
               src="https://www.youtube.com/embed/VIDEO_ID?si=PLACEHOLDER"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+              title="div>
     </section>
 
     <section>
@@ -109,57 +110,22 @@
               title="YouTube video player"
               referrerpolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="card">
-          <h3>静岡市方面</h3>
-          <div class="player">
+              loading="lazy" allowfullscreen>
             <iframe
               src="https://www.youtube.com/embed/VIDEO_ID"
               title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="card">
-          <h3>伊豆半島方面</h3>
-          <div class="player">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>山梨県</h2>
+              referrer>山梨県</h2>
       <div class="grid">
         <div class="card">
           <h3>山中湖</h3>
           <div class="player">
             <iframe
               src="https://www.youtube.com/embed/VIDEO_ID"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
+             
         <div class="card">
           <h3>甲府市近辺</h3>
           <div class="player">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID"
-              title="YouTube video player"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            https://www.youtube.com/embed/VIDEO_ID</iframe>
           </div>
         </div>
       </div>
@@ -167,26 +133,25 @@
 
     <section>
       <h2>埋め込みコードのテンプレート（コピー用）</h2>
-      <pre><code>&lt;iframe width="560" height="315"
+<pre><code>&lt;iframe width="560" height="315"
   src="https://www.youtube.com/embed/VIDEO_ID"
   title="YouTube video player"
   referrerpolicy="strict-origin-when-cross-origin"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen&gt;&lt;/iframe&gt;
+  loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;
 
-<!-- プライバシー強化モードを使う場合 -->
+&lt;!-- プライバシー強化モード（Cookie最小化） --&gt;
 &lt;iframe width="560" height="315"
   src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
   title="YouTube video player"
   referrerpolicy="strict-origin-when-cross-origin"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen&gt;&lt;/iframe&gt;
+  loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;
 </code></pre>
     </section>
-
-    <footer>
-      最終更新: 2025-12-13 / エラー153回避設定済み
-    </footer>
   </main>
+
+  <footer>
+    © 2025 LiveCamURL
+   </footer>
 </body>
-</html>
