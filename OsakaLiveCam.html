@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>OsakaLiveCam — 大阪ドクターヘリ 運航範囲 ライブカメラ</title>
+<style>
+  :root{
+    --bg:#0A141C;
+    --panel:#10202C;
+    --panel-2:#162A38;
+    --rule:#233B4D;
+    --ink:#DEE9F0;
+    --muted:#7C98A9;
+    --amber:#E8A33D;
+    --go:#4FB477;
+    --caution:#D96B5A;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+    --sans: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px}
+
+  /* ---- header ---- */
+  header{border-bottom:1px solid var(--rule);padding-bottom:18px;margin-bottom:8px}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--amber); margin:0 0 6px;
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  }
+  .eyebrow .call{
+    color:var(--ink); background:var(--panel); border:1px solid var(--rule);
+    border-radius:3px; padding:2px 7px; letter-spacing:.14em;
+  }
+  h1{font-size:clamp(22px,3.4vw,32px);margin:0;letter-spacing:-.01em;font-weight:700}
+  .sub{color:var(--muted);font-size:13.5px;margin:8px 0 0;max-width:64ch}
+  .clock{
+    font-family:var(--mono);font-size:13px;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:4px;
+    padding:6px 10px;display:inline-block;margin-top:12px;
+  }
+  .clock b{color:var(--amber);font-weight:600}
+
+  /* ---- caution strip ---- */
+  .caution{
+    display:flex;gap:10px;align-items:flex-start;
+    border-left:3px solid var(--caution);
+    background:rgba(217,107,90,.08);
+    padding:10px 14px;margin:18px 0 28px;border-radius:0 4px 4px 0;
+    font-size:12.5px;color:#E8C4BC;
+  }
+  .caution span{font-family:var(--mono);color:var(--caution);font-size:11px;letter-spacing:.12em;flex:none}
+
+  /* ---- sector ---- */
+  .sector{margin-top:34px}
+  .sector-head{
+    display:flex;align-items:baseline;gap:12px;
+    border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:16px;
+  }
+  .sector-head h2{font-size:15px;margin:0;font-weight:700;letter-spacing:.02em}
+  .sector-head .rng{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;margin-left:auto;text-align:right}
+
+  /* ---- grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .cam{
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .frame{position:relative;aspect-ratio:16/9;background:#000;border-bottom:1px solid var(--rule)}
+  .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .meta{padding:12px 14px 14px}
+  .name{font-size:14px;font-weight:700;margin:0 0 2px;line-height:1.35}
+  .place{font-size:12px;color:var(--muted);margin:0 0 10px}
+
+  /* signature: bearing/range tag from base */
+  .brg{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11px;color:var(--ink);
+    background:var(--panel-2);border:1px solid var(--rule);
+    border-radius:3px;padding:5px 8px;margin-bottom:10px;
+  }
+  .dial{width:16px;height:16px;flex:none;transform-origin:50% 50%}
+  .dial circle{fill:none;stroke:var(--rule);stroke-width:1.5}
+  .dial path{fill:var(--amber)}
+  .brg .val{color:var(--amber)}
+  .brg .sep{color:var(--rule)}
+
+  .look{font-size:12px;color:var(--muted);margin:0 0 10px}
+  .look b{color:var(--ink);font-weight:600}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  a.btn{
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    color:var(--ink);text-decoration:none;border:1px solid var(--rule);
+    border-radius:3px;padding:4px 9px;background:transparent;
+  }
+  a.btn:hover{border-color:var(--amber);color:var(--amber)}
+  a.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:3px 7px;border-radius:2px}
+  .tag.h{background:rgba(79,180,119,.14);color:var(--go)}
+  .tag.m{background:rgba(232,163,61,.14);color:var(--amber)}
+
+  /* ---- links ---- */
+  .links{margin-top:44px;border-top:1px solid var(--rule);padding-top:20px}
+  .links h2{font-size:15px;margin:0 0 12px}
+  .links ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+  .links a{color:var(--ink);text-decoration:none;font-size:13px;display:block;
+    border:1px solid var(--rule);border-radius:4px;padding:9px 12px;background:var(--panel)}
+  .links a:hover{border-color:var(--amber)}
+  .links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .links a small{display:block;color:var(--muted);font-size:11px;font-family:var(--mono);margin-top:2px}
+
+  footer{margin-top:40px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule);padding-top:16px}
+  footer code{font-family:var(--mono);color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Weather Recce / Osaka HEMS <span class="call">OSAKALIVECAM</span></p>
+  <h1>大阪ドクターヘリ 運航範囲 ライブカメラ盤</h1>
+  <p class="sub">基地を基準に、方位・距離順のセクター配置。雲底・視程・降水の目視確認用。方位／距離は基地位置からの概算（球面近似）で、航法用ではありません。</p>
+  <div class="clock" id="clock">--:--:-- JST</div>
+</header>
+
+<div class="caution">
+  <span>CAUTION</span>
+  <div>ここに並ぶのは第三者が配信する参考映像です。配信停止・カメラ移設・画角変更でリンクが切れることがあります。Go/No-Go の判断は必ず METAR / TAF・気象庁レーダー・現地目視で確定させてください。</div>
+</div>
+
+<!-- ================= 基地周辺・北摂 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>基地周辺・北摂／阪神間</h2>
+    <div class="rng">SECTOR 240–260° · 10 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/IN4VXXk94qU" title="伊丹空港 32Lエンド ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">大阪国際空港 RWY32L エンド（千里川土手）</p>
+        <p class="place">豊中市原田中 ／ ITM SKY CAM</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(245deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">245°</b></span><span class="sep">/</span><span>10 NM</span>
+        </div>
+        <p class="look">画角：<b>滑走路方向・北西の空</b>。RJOO の雲底と視程を最短で当たれる一本。着陸機の見え方で雲高の当たりを付ける。</p>
+        <div class="row">
+          <span class="tag h">常時配信</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=IN4VXXk94qU" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/adzdSi2PQMU" title="伊丹空港 ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">大阪国際空港（伊丹）ターミナル側</p>
+        <p class="place">豊中市／伊丹市 ／ 報道系配信</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(245deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">245°</b></span><span class="sep">/</span><span>10 NM</span>
+        </div>
+        <p class="look">画角：<b>エプロン〜滑走路</b>。上の32Lエンドと別方位から。片方が落ちたときの代替として。</p>
+        <div class="row">
+          <span class="tag m">配信状況 要確認</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=adzdSi2PQMU" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 大阪市中心部 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>大阪市中心部</h2>
+    <div class="rng">SECTOR 200–210° · 11 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/J0hiZqcKZtc" title="大阪城 天気ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">大阪城 天気LIVEカメラ</p>
+        <p class="place">大阪市中央区 ／ 定点観測</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(205deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">205°</b></span><span class="sep">/</span><span>11 NM</span>
+        </div>
+        <p class="look">画角：<b>大阪城を近接で捉える天気カメラ</b>。市街地上空の雲量とガスの入り方を見る基準点。</p>
+        <div class="row">
+          <span class="tag h">常時配信</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=J0hiZqcKZtc" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/-Vck0hn-zqk" title="天満橋〜大阪城 天気ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">天満橋〜大阪城 天気LIVEカメラ</p>
+        <p class="place">大阪市中央区／北区 ／ 定点観測</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(203deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">203°</b></span><span class="sep">/</span><span>11 NM</span>
+        </div>
+        <p class="look">画角：<b>大川〜上町台地方向</b>。高層ビル群の頭が見えているかどうかで、都心部の雲底をざっくり切れる。</p>
+        <div class="row">
+          <span class="tag h">常時配信</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=-Vck0hn-zqk" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 中河内・八尾方面 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>中河内・八尾空港方面</h2>
+    <div class="rng">SECTOR 185–190° · 14 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/O9HzIuolSds" title="Osaka Sky Livecam 八尾" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">お天気カメラ 大阪／Osaka Sky Livecam</p>
+        <p class="place">八尾市 久宝寺付近 ／ 24時間配信</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(187deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">187°</b></span><span class="sep">/</span><span>14 NM</span>
+        </div>
+        <p class="look">画角：<b>大阪平野を南西〜北まで広く</b>。あべのハルカスが映るので、視程の当たり付けに使える一枚。八尾空港のすぐ近くで、この盤で一番情報量が多い。</p>
+        <div class="row">
+          <span class="tag h">常時配信</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=O9HzIuolSds" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 泉州・関空 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>泉州・関西国際空港</h2>
+    <div class="rng">SECTOR 215–220° · 31 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/v4bVUjsFqAQ" title="関西国際空港 第1ターミナル ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">関西国際空港（KIX）第1ターミナル</p>
+        <p class="place">泉佐野市 ／ 報道系配信</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(217deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">217°</b></span><span class="sep">/</span><span>31 NM</span>
+        </div>
+        <p class="look">画角：<b>ターミナル〜大阪湾側</b>。海上からの雲・海霧の入り方を見る。泉南方面へ向かうときの南西象限の目安。</p>
+        <div class="row">
+          <span class="tag m">配信状況 要確認</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=v4bVUjsFqAQ" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 南部山岳 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>南部山岳・和歌山北部</h2>
+    <div class="rng">SECTOR 180–185° · 38 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/XXVXVSLbjAk" title="高野山 情報カメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">高野山・金剛峯寺 情報カメラ</p>
+        <p class="place">和歌山県高野町（標高約800m） ／ テレビ和歌山</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(183deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">183°</b></span><span class="sep">/</span><span>38 NM</span>
+        </div>
+        <p class="look">画角：<b>境内・山上</b>。この盤で唯一の高標高点。南部山間へ向かうときの<b>山岳のガス・着氷域の判断材料</b>として価値が高い。ここが真っ白なら南は覚悟が要る。機器メンテ時は別映像に切り替わることあり。</p>
+        <div class="row">
+          <span class="tag h">常時配信</span>
+          <a class="btn" href="https://www.youtube.com/watch?v=XXVXVSLbjAk" target="_blank" rel="noopener">YouTubeで開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 京都南部 ================= -->
+<section class="sector">
+  <div class="sector-head">
+    <h2>京都南部（北象限）</h2>
+    <div class="rng">SECTOR 035–040° · 12 NM</div>
+  </div>
+  <div class="grid">
+
+    <article class="cam">
+      <div class="frame"><iframe src="https://www.youtube.com/embed/videoseries?list=PLRZI-uS7qxtBsJeiJJfYy_paW2jy3N9Vz" title="京都市内 ライブ中継カメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="meta">
+        <p class="name">京都市内 ライブ中継カメラ（複数地点）</p>
+        <p class="place">京都市 ／ 市内複数地点のプレイリスト</p>
+        <div class="brg">
+          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(38deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
+          <span>BRG <b class="val">038°</b></span><span class="sep">/</span><span>12 NM</span>
+        </div>
+        <p class="look">画角：<b>観光地の地上定点</b>。空撮向きではないが、北象限の降水・路面・明るさの当たりを付けるには足りる。プレイリストなので配信が入れ替わっても追従する。</p>
+        <div class="row">
+          <span class="tag m">観光カメラ（気象専用ではない）</span>
+          <a class="btn" href="https://www.youtube.com/playlist?list=PLRZI-uS7qxtBsJeiJJfYy_paW2jy3N9Vz" target="_blank" rel="noopener">プレイリストを開く</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 補完リンク ================= -->
+<section class="links">
+  <h2>YouTube 以外の補完ソース</h2>
+  <ul>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/osaka/" target="_blank" rel="noopener">ウェザーニュース ライブカメラ（大阪府）<small>静止画・多点／10分更新</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/nara/" target="_blank" rel="noopener">同（奈良県）<small>東象限の補完</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/wakayama/" target="_blank" rel="noopener">同（和歌山県）<small>南象限の補完</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/kyoto/" target="_blank" rel="noopener">同（京都府）<small>北象限の補完</small></a></li>
+    <li><a href="https://hce.hanshin.co.jp/weathercam/" target="_blank" rel="noopener">阪神ケーブル お天気・河川カメラ<small>阪神間の多点定点</small></a></li>
+    <li><a href="https://www.cametan.com/area/osaka.html" target="_blank" rel="noopener">カメ探（大阪府）<small>市町村・河川別で探す</small></a></li>
+    <li><a href="https://www.livecamera47.com/%E5%A4%A7%E9%98%AA%E5%BA%9C/" target="_blank" rel="noopener">Livecamera47（大阪府）<small>カメラの向き付きで整理</small></a></li>
+    <li><a href="https://www.jma.go.jp/bosai/nowc/" target="_blank" rel="noopener">気象庁 ナウキャスト（降水・雷・竜巻）<small>Go/No-Go 確定用</small></a></li>
+  </ul>
+</section>
+
+<footer>
+  方位・距離は基地位置からの概算（球面近似）で、航法用ではありません。各映像の権利は配信元に帰属します。カメラ構成を足す・外すときはこのファイルの <code>&lt;article class="cam"&gt;</code> ブロックを複製して動画IDを差し替えてください。<br>
+  OsakaLiveCam — pilot weather-recce board.
+</footer>
+
+</div>
+
+<script>
+  const el = document.getElementById('clock');
+  const fmt = (n) => String(n).padStart(2,'0');
+  function tick(){
+    const jst = new Date(Date.now() + (new Date().getTimezoneOffset()*60000) + 9*3600000);
+    el.innerHTML = `${jst.getFullYear()}-${fmt(jst.getMonth()+1)}-${fmt(jst.getDate())} <b>${fmt(jst.getHours())}:${fmt(jst.getMinutes())}:${fmt(jst.getSeconds())}</b> JST`;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
