@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>OsakaLiveCam — 大阪ドクターヘリ 運航範囲 ライブカメラ</title>
+<title>OsakaLiveCam — 大阪ドクターヘリライブカメラ</title>
 <style>
   :root{
     /* bright daytime-VFR palette: sky-tinted neutrals + aviation blue */
@@ -140,14 +140,14 @@
 
 <header>
   <p class="eyebrow">Weather Recce / Osaka HEMS <span class="call">OSAKALIVECAM</span></p>
-  <h1>大阪ドクターヘリ 運航範囲 ライブカメラ盤</h1>
-  <p class="sub">基地を基準に方位・距離順のセクター配置。雲底・視程・降水の目視確認用。各枠は配信「チャンネル」を直接埋め込む方式で、配信が再起動しても現在ライブへ自動追従します。方位／距離は概算（球面近似）で航法用ではありません。</p>
+  <h1>大阪ドクターヘリライブカメラ</h1>
+  <p class="sub">基地を基準に方位・距離順のセクター配置。雲底・視程・降水の目視確認用。各枠は配信「チャンネル」を直接埋め込む方式で、配信が再起動しても現在ライブへ自動追従します。</p>
   <div class="clock" id="clock">--:--:-- JST</div>
 </header>
 
 <div class="caution">
   <span>CAUTION</span>
-  <div>第三者が配信する参考映像です。メンテナンス・配信停止・画角変更で映らないことがあります。Go/No-Go の判断は必ず METAR / TAF・気象庁レーダー／ナウキャスト・現地目視で確定してください。映らない枠は各カードの「ライブを開く」からチャンネルを直接確認できます。</div>
+  <div>第三者が配信する参考映像です。メンテナンス・配信停止・画角変更で映らないことがあります。本ページはAIによる自動生成のため、画角・方位・距離などの情報が実際と異なる場合があります。</div>
 </div>
 
 <!-- ================= 基地周辺・北摂 ================= -->
@@ -268,7 +268,7 @@
 </section>
 
 <footer>
-  埋め込みは各配信<b>チャンネル</b>の現在ライブへ自動追従します（<code>embed/live_stream?channel=…</code>）。チャンネルが休止中のときは映像が出ません。方位・距離は基地位置からの概算で航法用ではありません。各映像の権利は配信元に帰属します。<br>
+  埋め込みは各配信<b>チャンネル</b>の現在ライブへ自動追従します（<code>embed/live_stream?channel=…</code>）。チャンネルが休止中のときは映像が出ません。方位・距離は基地位置からの概算です。各映像の権利は配信元に帰属します。<br>
   カメラを足す・入れ替えるときは <code>&lt;article class="cam"&gt;</code> ブロックを複製し、<code>channel=</code> の後ろのチャンネルID（<code>UC…</code>）を差し替えてください。<br>
   OsakaLiveCam — pilot weather-recce board.
 </footer>
