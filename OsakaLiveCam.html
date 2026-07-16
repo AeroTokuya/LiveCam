@@ -75,7 +75,6 @@
     border-bottom:2px solid var(--rule);padding-bottom:8px;margin-bottom:16px;
   }
   .sector-head h2{font-size:15px;margin:0;font-weight:800;letter-spacing:.02em}
-  .sector-head .rng{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-left:auto;text-align:right}
 
   /* ---- grid ---- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
@@ -90,20 +89,7 @@
   .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .meta{padding:13px 15px 15px}
   .name{font-size:14px;font-weight:800;margin:0 0 2px;line-height:1.35}
-  .place{font-size:12px;color:var(--muted);margin:0 0 11px}
-
-  /* signature: bearing/range tag from base */
-  .brg{
-    display:flex;align-items:center;gap:8px;
-    font-family:var(--mono);font-size:11px;color:var(--ink);
-    background:var(--card-2);border:1px solid var(--rule-soft);
-    border-radius:5px;padding:5px 9px;margin-bottom:11px;
-  }
-  .dial{width:16px;height:16px;flex:none;transform-origin:50% 50%}
-  .dial circle{fill:none;stroke:var(--rule);stroke-width:1.5}
-  .dial path{fill:var(--blue)}
-  .brg .val{color:var(--blue-deep);font-weight:700}
-  .brg .sep{color:var(--rule)}
+  .place{font-size:12px;color:var(--muted);margin:0 0 10px}
 
   .look{font-size:12px;color:var(--muted);margin:0 0 11px}
   .look b{color:var(--ink);font-weight:700}
@@ -141,20 +127,19 @@
 <header>
   <p class="eyebrow">Weather Recce / Osaka HEMS <span class="call">OSAKALIVECAM</span></p>
   <h1>大阪ドクターヘリライブカメラ</h1>
-  <p class="sub">基地を基準に方位・距離順のセクター配置。雲底・視程・降水の目視確認用。放送局系の長期連続配信を中心に採用しています。映らない枠は「ライブを開く」から配信元を直接確認できます。</p>
+  <p class="sub">雲底・視程・降水の目視確認用。放送局系の長期連続配信を中心に採用しています。映らない枠は「ライブを開く」から配信元を直接確認できます。</p>
   <div class="clock" id="clock">--:--:-- JST</div>
 </header>
 
 <div class="caution">
   <span>CAUTION</span>
-  <div>第三者が配信する参考映像です。メンテナンス・配信停止・画角変更で映らないことがあります。本ページはAIによる自動生成のため、画角・方位・距離などの情報が実際と異なる場合があります。</div>
+  <div>第三者が配信する参考映像です。メンテナンス・配信停止・画角変更で映らないことがあります。本ページはAIによる自動生成のため、画角等の情報が実際と異なる場合があります。</div>
 </div>
 
 <!-- ================= 基地周辺・北摂／阪神間 ================= -->
 <section class="sector">
   <div class="sector-head">
     <h2>基地周辺・北摂／阪神間</h2>
-    <div class="rng">SECTOR 200–260° · ～10 NM</div>
   </div>
   <div class="grid">
 
@@ -162,12 +147,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/1xoN53xUUQs" title="伊丹空港 ライブカメラ（MBSニュース）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">大阪国際空港（伊丹・RJOO）滑走路</p>
-        <p class="place">豊中市／伊丹市 ／ MBSニュース・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(250deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">250°</b></span><span class="sep">/</span><span>～8 NM</span>
-        </div>
-        <p class="look">画角：<b>駐機場〜滑走路・北西の空</b>。RJOO の雲底と視程を最短で当たれる一本。着陸機の見え方で雲高の当たりを付ける。</p>
+        <p class="place">MBSニュース・24時間</p>
+        <p class="look">空港ターミナル付近から<b>駐機場〜滑走路</b>を撮影。</p>
         <div class="row">
           <span class="tag h">放送局・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=1xoN53xUUQs" target="_blank" rel="noopener">ライブを開く</a>
@@ -179,12 +160,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/NAuMwYBWbfU" title="伊丹空港 ライブカメラ（読売テレビ）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">大阪国際空港（伊丹）別画角</p>
-        <p class="place">豊中市／伊丹市 ／ 読売テレビ・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(248deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">248°</b></span><span class="sep">/</span><span>～8 NM</span>
-        </div>
-        <p class="look">画角：<b>ターミナル〜滑走路</b>。上のMBSと別方位から。片方が落ちたときの代替として。</p>
+        <p class="place">読売テレビ・24時間</p>
+        <p class="look">空港周辺から<b>ターミナル〜滑走路</b>を撮影。</p>
         <div class="row">
           <span class="tag h">放送局・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=NAuMwYBWbfU" target="_blank" rel="noopener">ライブを開く</a>
@@ -196,12 +173,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/G-BnuwxaAmQ" title="ITM SKY CAM 伊丹空港 32L" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">伊丹空港 RWY32L サイド（ITM SKY CAM）</p>
-        <p class="place">豊中市 ／ 個人配信・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(245deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">245°</b></span><span class="sep">/</span><span>～9 NM</span>
-        </div>
-        <p class="look">画角：<b>32L 滑走路サイド</b>。低めのアングルで進入経路の空が見える。配信再起動でIDが変わることがあるため、映らないときは「ライブを開く」から。</p>
+        <p class="place">個人配信・24時間</p>
+        <p class="look">豊中市側の滑走路32L脇から<b>滑走路と進入経路の空</b>を撮影。</p>
         <div class="row">
           <span class="tag m">個人配信・ID変動あり</span>
           <a class="btn" href="https://www.youtube.com/watch?v=G-BnuwxaAmQ" target="_blank" rel="noopener">ライブを開く</a>
@@ -213,12 +186,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/live_stream?channel=UC34eMne6xBmBqsAfA8q8ZAg" title="新大阪 ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">新大阪ライブカメラ（Sin-Osaka Cam）</p>
-        <p class="place">大阪市淀川区・新大阪駅周辺 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(205deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">205°</b></span><span class="sep">/</span><span>～5 NM</span>
-        </div>
-        <p class="look">画角：<b>淀川〜梅田方向の市街</b>。基地南側の直近。梅田の高層ビル群の頭が見えるかで、北摂〜都心の雲底を素早く切れる。</p>
+        <p class="place">Sin-Osaka Cam・24時間</p>
+        <p class="look">新大阪駅周辺から<b>駅前と市街</b>を撮影。</p>
         <div class="row">
           <span class="tag h">24時間・自動追従</span>
           <a class="btn" href="https://www.youtube.com/channel/UC34eMne6xBmBqsAfA8q8ZAg/live" target="_blank" rel="noopener">ライブを開く</a>
@@ -233,7 +202,6 @@
 <section class="sector">
   <div class="sector-head">
     <h2>大阪市中心部・ミナミ</h2>
-    <div class="rng">SECTOR 190–210° · ～12 NM</div>
   </div>
   <div class="grid">
 
@@ -241,12 +209,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/GFmAUZt8K9I" title="大阪・梅田 ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">大阪・梅田（JR大阪駅周辺）</p>
-        <p class="place">大阪市北区 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(208deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">208°</b></span><span class="sep">/</span><span>～7 NM</span>
-        </div>
-        <p class="look">画角：<b>大阪駅・梅田の高層ビル群</b>。ビルの頭の隠れ方で都心北側の雲底を判定。降水・路面状態も分かる。</p>
+        <p class="place">24時間</p>
+        <p class="look">梅田から<b>JR大阪駅と周辺の高層ビル群</b>を撮影。</p>
         <div class="row">
           <span class="tag h">24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=GFmAUZt8K9I" target="_blank" rel="noopener">ライブを開く</a>
@@ -258,12 +222,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/GiZq9R_djaM" title="道頓堀 グリコ看板前 ライブカメラ（MBS）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">道頓堀・戎橋（グリコ看板前）</p>
-        <p class="place">大阪市中央区 ／ MBSニュース・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(200deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">200°</b></span><span class="sep">/</span><span>～9 NM</span>
-        </div>
-        <p class="look">画角：<b>道頓堀・ミナミの地上定点</b>。降水の始まり・強さ、傘の開き方でミナミ周辺の実況が読める。</p>
+        <p class="place">MBSニュース・24時間</p>
+        <p class="look">戎橋付近から<b>道頓堀川とグリコ看板</b>を撮影。</p>
         <div class="row">
           <span class="tag h">放送局・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=GiZq9R_djaM" target="_blank" rel="noopener">ライブを開く</a>
@@ -275,12 +235,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/YIjxwMxWzgE" title="あべのハルカス 大阪上空 ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">あべのハルカス・大阪上空（osaka sky livecam）</p>
-        <p class="place">大阪市／八尾方面から俯瞰 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(195deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">195°</b></span><span class="sep">/</span><span>～12 NM</span>
-        </div>
-        <p class="look">画角：<b>あべのハルカス（300m）と大阪の空を広く</b>。ハルカスの頭が見えるかどうかが都心部の雲底判定の実質的な基準。視程の当たり付けにも。</p>
+        <p class="place">osaka sky livecam・24時間</p>
+        <p class="look">大阪市内から<b>あべのハルカス（高さ300m）と大阪の空</b>を撮影。</p>
         <div class="row">
           <span class="tag m">個人配信・ID変動あり</span>
           <a class="btn" href="https://www.youtube.com/channel/UC7lHIZbQzHILorlX4R0izsw" target="_blank" rel="noopener">チャンネルを開く</a>
@@ -295,7 +251,6 @@
 <section class="sector">
   <div class="sector-head">
     <h2>大阪湾・泉州／関空・神戸方面</h2>
-    <div class="rng">SECTOR 215–260° · 15–31 NM</div>
   </div>
   <div class="grid">
 
@@ -303,12 +258,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/QlNRsUPGMaY" title="関西国際空港 第1ターミナル ライブカメラ（カンテレNEWS）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">関西国際空港（KIX）第1ターミナル</p>
-        <p class="place">泉佐野市 ／ カンテレNEWS・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(217deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">217°</b></span><span class="sep">/</span><span>～31 NM</span>
-        </div>
-        <p class="look">画角：<b>ターミナル〜エプロン・大阪湾側</b>。海上からの雲・海霧の入り方を見る。泉南方面へ向かうときの南西象限の目安。</p>
+        <p class="place">カンテレNEWS・24時間</p>
+        <p class="look">第1ターミナルから<b>エプロン〜大阪湾側</b>を撮影。</p>
         <div class="row">
           <span class="tag h">放送局・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=QlNRsUPGMaY" target="_blank" rel="noopener">ライブを開く</a>
@@ -320,12 +271,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/rgesvJlSn0E" title="泉佐野沖 関空 ライブ配信" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">泉佐野沖・関空方向（大阪湾）</p>
-        <p class="place">泉佐野市沿岸 ／ 24時間・ADS-B表示付き</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(220deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">220°</b></span><span class="sep">/</span><span>～28 NM</span>
-        </div>
-        <p class="look">画角：<b>大阪湾越しに関空方向</b>。海面と対岸の見え方で湾上の視程・海霧をそのまま読める。ADS-B のトラフィック表示付き。</p>
+        <p class="place">24時間・ADS-B表示付き</p>
+        <p class="look">泉佐野市の沿岸から<b>大阪湾越しに関空方向</b>を撮影。</p>
         <div class="row">
           <span class="tag m">個人配信・ID変動あり</span>
           <a class="btn" href="https://www.youtube.com/watch?v=rgesvJlSn0E" target="_blank" rel="noopener">ライブを開く</a>
@@ -337,12 +284,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/AU_2zfM4m68" title="神戸ウォーターフロント ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">神戸ウォーターフロント（メリケンパーク）</p>
-        <p class="place">神戸市中央区 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(242deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">242°</b></span><span class="sep">/</span><span>～20 NM</span>
-        </div>
-        <p class="look">画角：<b>神戸港・ポートタワー・大阪湾西岸</b>。阪神間〜神戸空港方面の視程と、湾奥への海霧の回り込みを見る。</p>
+        <p class="place">24時間</p>
+        <p class="look">メリケンパーク周辺から<b>神戸港とポートタワー（高さ108m）</b>を撮影。</p>
         <div class="row">
           <span class="tag h">24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=AU_2zfM4m68" target="_blank" rel="noopener">ライブを開く</a>
@@ -354,12 +297,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/live_stream?channel=UCdgcQdF57Gf69W6NBzw1sVg" title="六甲山ビジターセンター ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">六甲山ビジターセンター 展望デッキ</p>
-        <p class="place">神戸市灘区（標高約880m） ／ 兵庫県立</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(258deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">258°</b></span><span class="sep">/</span><span>～15 NM</span>
-        </div>
-        <p class="look">画角：<b>大阪湾・関空・神戸空港・淡路島</b>を高標高から一望。山の上のガスの有無がそのまま分かる貴重な高度点。ここが真っ白なら六甲越えは要注意。</p>
+        <p class="place">兵庫県立</p>
+        <p class="look">六甲山の展望デッキ（標高約880m）から<b>大阪湾・関空・神戸空港・淡路島</b>を撮影。</p>
         <div class="row">
           <span class="tag m">日中中心・休止あり</span>
           <a class="btn" href="https://www.youtube.com/channel/UCdgcQdF57Gf69W6NBzw1sVg/live" target="_blank" rel="noopener">ライブを開く</a>
@@ -374,7 +313,6 @@
 <section class="sector">
   <div class="sector-head">
     <h2>南部山岳・和歌山北部</h2>
-    <div class="rng">SECTOR 180–185° · ～38 NM</div>
   </div>
   <div class="grid">
 
@@ -382,12 +320,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/XXVXVSLbjAk" title="高野山 情報カメラ（テレビ和歌山）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">高野山・金剛峯寺 情報カメラ</p>
-        <p class="place">和歌山県高野町（標高約800m） ／ テレビ和歌山・24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(183deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">183°</b></span><span class="sep">/</span><span>～38 NM</span>
-        </div>
-        <p class="look">画角：<b>境内・山上</b>。南部山間へ向かうときの<b>山岳のガス・着氷域の判断材料</b>。ここが真っ白なら南は覚悟が要る。</p>
+        <p class="place">テレビ和歌山・24時間</p>
+        <p class="look">金剛峯寺（標高約800m）から<b>境内と山上の空</b>を撮影。</p>
         <div class="row">
           <span class="tag h">放送局・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=XXVXVSLbjAk" target="_blank" rel="noopener">ライブを開く</a>
@@ -401,8 +335,7 @@
 <!-- ================= 京都南部（北象限） ================= -->
 <section class="sector">
   <div class="sector-head">
-    <h2>京都南部（北象限）</h2>
-    <div class="rng">SECTOR 030–045° · ～12 NM</div>
+    <h2>京都南部</h2>
   </div>
   <div class="grid">
 
@@ -410,12 +343,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/IQKJPxjnjUw" title="京都タワー ライブカメラ" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">京都タワー・京都駅方向</p>
-        <p class="place">京都市下京区 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(38deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">038°</b></span><span class="sep">/</span><span>～12 NM</span>
-        </div>
-        <p class="look">画角：<b>京都タワー（131m）と市街の空</b>。タワーの頭と東山の稜線の見え方で、北象限の雲底・視程を切る。</p>
+        <p class="place">24時間</p>
+        <p class="look">京都駅周辺から<b>京都タワー（高さ131m）と市街の空</b>を撮影。</p>
         <div class="row">
           <span class="tag m">個人配信・ID変動あり</span>
           <a class="btn" href="https://www.youtube.com/watch?v=IQKJPxjnjUw" target="_blank" rel="noopener">ライブを開く</a>
@@ -427,12 +356,8 @@
       <div class="frame"><iframe src="https://www.youtube.com/embed/CO_ZjH6N7RE" title="京都駅八条口 ライブ中継カメラ（京都市観光協会）" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       <div class="meta">
         <p class="name">京都駅八条口（京都市観光協会 公式）</p>
-        <p class="place">京都市南区 ／ 24時間</p>
-        <div class="brg">
-          <svg class="dial" viewBox="0 0 20 20" style="transform:rotate(40deg)"><circle cx="10" cy="10" r="8"/><path d="M10 2 L13 10 L10 8 L7 10 Z"/></svg>
-          <span>BRG <b class="val">040°</b></span><span class="sep">/</span><span>～12 NM</span>
-        </div>
-        <p class="look">画角：<b>京都駅前の地上定点</b>。北象限の降水・路面・明るさの実況用。公式運営なので配信が安定している。</p>
+        <p class="place">京都市観光協会・24時間</p>
+        <p class="look">京都駅八条口から<b>駅前広場</b>を撮影。</p>
         <div class="row">
           <span class="tag h">公式・24時間</span>
           <a class="btn" href="https://www.youtube.com/watch?v=CO_ZjH6N7RE" target="_blank" rel="noopener">ライブを開く</a>
@@ -445,13 +370,13 @@
 
 <!-- ================= 補完リンク ================= -->
 <section class="links">
-  <h2>補完ソース（映らないとき・象限を埋める）</h2>
+  <h2>補完ソース（映らないとき・エリアを埋める）</h2>
   <ul>
     <li><a href="https://www.jma.go.jp/bosai/nowc/" target="_blank" rel="noopener">気象庁 ナウキャスト（降水・雷・竜巻）<small>面的な実況の確認に</small></a></li>
     <li><a href="https://weathernews.jp/onebox/livecam/kinki/osaka/" target="_blank" rel="noopener">ウェザーニュース ライブカメラ（大阪府）<small>静止画・多点／約10分更新</small></a></li>
-    <li><a href="https://weathernews.jp/onebox/livecam/kinki/wakayama/" target="_blank" rel="noopener">同（和歌山県）<small>南象限・山岳の補完</small></a></li>
-    <li><a href="https://weathernews.jp/onebox/livecam/kinki/nara/" target="_blank" rel="noopener">同（奈良県）<small>東象限の補完</small></a></li>
-    <li><a href="https://weathernews.jp/onebox/livecam/kinki/kyoto/" target="_blank" rel="noopener">同（京都府）<small>北象限の補完</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/wakayama/" target="_blank" rel="noopener">同（和歌山県）<small>南エリアの補完</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/nara/" target="_blank" rel="noopener">同（奈良県）<small>東エリアの補完</small></a></li>
+    <li><a href="https://weathernews.jp/onebox/livecam/kinki/kyoto/" target="_blank" rel="noopener">同（京都府）<small>北エリアの補完</small></a></li>
     <li><a href="https://hce.hanshin.co.jp/weathercam/" target="_blank" rel="noopener">阪神ケーブル お天気・河川カメラ<small>阪神間の多点定点</small></a></li>
     <li><a href="https://camera-map.com/osaka/livecam-osaka-sky.html" target="_blank" rel="noopener">あべのハルカス・通天閣 ライブ＋雨雲レーダー<small>都心の空を別ソースで</small></a></li>
     <li><a href="https://www.cametan.com/area/osaka.html" target="_blank" rel="noopener">カメ探（大阪府）<small>市町村・河川別で探す</small></a></li>
@@ -460,7 +385,7 @@
 </section>
 
 <footer>
-  放送局・公式運営の配信は同じ動画IDで長期間連続配信されるため優先採用しています。個人配信は再起動でIDが変わることがあり、その場合は各カードの「ライブを開く」から現在の配信を確認してください。方位・距離は基地位置からの概算です。各映像の権利は配信元に帰属します。<br>
+  放送局・公式運営の配信は同じ動画IDで長期間連続配信されるため優先採用しています。個人配信は再起動でIDが変わることがあり、その場合は各カードの「ライブを開く」から現在の配信を確認してください。各映像の権利は配信元に帰属します。<br>
   カメラを足す・入れ替えるときは <code>&lt;article class="cam"&gt;</code> ブロックを複製し、<code>embed/</code> の後ろの動画IDを差し替えてください。<br>
   OsakaLiveCam — pilot weather-recce board.
 </footer>
